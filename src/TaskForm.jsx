@@ -17,10 +17,9 @@ export default function TaskForm() {
         )
     }
     function editTask(uuid) {
-        console.log("edit", uuid)
         const task = tasks.find(item => item.uuid === uuid)
         console.log(task)
-        setFormData(task)
+        setFormData({...task, isEdited:true})
     }
     function handleInputChange(event) {
         
@@ -37,15 +36,21 @@ export default function TaskForm() {
     function handleFormSubmit(event) {
         
         event.preventDefault()
-        // console.log("form data", formData)
-        if(formData.task.length > 3){
+        if(formData.isEdited){
+            const taskIndex = tasks.findIndex(item => item.uuid = formData.uuid)
+            const newTasks = tasks.slice() 
+            newTasks[taskIndex] = {...formData}
+            setTasks(newTasks)
+        }
+        else if(formData.task.length > 3){
             formData.uuid = uuidv4()
             setTasks(
                 prev => [formData, ...prev ]
             )
-            setFormData(emptyForm)
-            event.target.reset()
+            
         }
+        setFormData(emptyForm)
+        event.target.reset()
     }
 
     return <>
