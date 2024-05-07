@@ -1,4 +1,5 @@
 import { useState } from "react"
+import TaskList from "./TaskList"
 
 export default function TaskForm() {
     const emptyForm = {
@@ -7,6 +8,11 @@ export default function TaskForm() {
     }
     const [formData, setFormData] = useState(emptyForm)
     const [tasks, setTasks]  = useState([])
+
+    function removeTask(item){
+        console.log(item)
+    }
+
     function handleInputChange(event) {
         
 
@@ -33,9 +39,7 @@ export default function TaskForm() {
     }
 
     return <>
-    <ul>
-        {tasks.map((item, index) => <li key={index}>{item.task}</li>)}
-    </ul>
+        <TaskList tasks={tasks} removeTask={removeTask}/>
         <form onSubmit={handleFormSubmit}>
         <div className="row mb-3">
             <label htmlFor="task" className="col-sm-2 col-form-label">Task</label>
