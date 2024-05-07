@@ -11,12 +11,17 @@ export default function TaskForm() {
     const [tasks, setTasks]  = useState([])
 
     function removeTask(uuid){
-        console.log(uuid)
+        
         setTasks(prev => 
             prev.filter(item => item.uuid !== uuid)
         )
     }
-
+    function editTask(uuid) {
+        console.log("edit", uuid)
+        const task = tasks.find(item => item.uuid === uuid)
+        console.log(task)
+        setFormData(task)
+    }
     function handleInputChange(event) {
         
 
@@ -32,7 +37,7 @@ export default function TaskForm() {
     function handleFormSubmit(event) {
         
         event.preventDefault()
-        console.log("form data", formData)
+        // console.log("form data", formData)
         if(formData.task.length > 3){
             formData.uuid = uuidv4()
             setTasks(
@@ -44,12 +49,14 @@ export default function TaskForm() {
     }
 
     return <>
-        <TaskList tasks={tasks} removeTask={removeTask}/>
+        <TaskList tasks={tasks} removeTask={removeTask} editTask={editTask}/>
         <form onSubmit={handleFormSubmit}>
         <div className="row mb-3">
             <label htmlFor="task" className="col-sm-2 col-form-label">Task</label>
             <div className="col-sm-10">
-            <input type="text" className="form-control" id="task" name="task" onChange={handleInputChange}/>
+            <input type="text" className="form-control"
+            value={formData.task}
+            id="task" name="task" onChange={handleInputChange}/>
             </div>
         </div>
 
@@ -57,7 +64,9 @@ export default function TaskForm() {
         <div className="row mb-3">
             <div className="col-sm-10 offset-sm-2">
             <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="priority" name= "priority" onChange={handleInputChange}/>
+                <input className="form-check-input" type="checkbox" id="priority" name= "priority" 
+                checked={formData.priority}
+                onChange={handleInputChange}/>
                 <label className="form-check-label" htmlFor="priority">
                 High Priority
                 </label>
