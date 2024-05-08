@@ -37,7 +37,7 @@ export default function TaskForm() {
         
         event.preventDefault()
         if(formData.isEdited){
-            const taskIndex = tasks.findIndex(item => item.uuid = formData.uuid)
+            const taskIndex = tasks.findIndex(item => item.uuid === formData.uuid)
             const newTasks = tasks.slice() 
             newTasks[taskIndex] = {...formData}
             setTasks(newTasks)

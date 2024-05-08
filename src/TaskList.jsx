@@ -8,6 +8,7 @@ export default function TaskList({tasks, removeTask, editTask}) {
       <ul className="list-group">
         {tasks.map((item) => 
         <li className="list-group-item" key={item.uuid}>
+            {item.priority && <span className="badge text-bg-secondary me-3">High Priority</span>}
             {item.task}
 
         <div className="btn-group float-end" role="group">
