@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import TaskListItem from "./TaskListItem"
 
-export default function TaskList({tasks, removeTask, editTask}) {
+export default function TaskList({tasks, removeTask, editTask, doneTask}) {
     const [priority, setPriority] = useState(false)
     const [filteredTasks, setFilteredTask] = useState(tasks)
 
@@ -33,7 +33,12 @@ export default function TaskList({tasks, removeTask, editTask}) {
     </h4>
       <ul className="list-group">
         {filteredTasks.map((task) => 
-            <TaskListItem key={task.uuid} task={task} editTask={editTask} removeTask={removeTask} />
+            <TaskListItem 
+            key={task.uuid} 
+            task={task} 
+            editTask={editTask} 
+            removeTask={removeTask} 
+            doneTask={doneTask}/>
     )}
      </ul>
     </div>
